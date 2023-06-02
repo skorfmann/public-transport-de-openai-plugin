@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  title: Journey Assistant API
+  version: 1.0.0
+paths:
+  /journeys:
+    get:
+      operationId: getJourneys
+      summary: Get a list of train journeys
+      description: Requires "start" and "destination" parameters
+      parameters:
+        - name: start
+          in: query
+          description: Start location of the journey
+          required: true
+          schema:
+            type: string
+        - name: destination
+          in: query
+          description: Destination location of the journey
+          required: true
+          schema:
+            type: string
+        - name: departure
+          in: query
+          description: Departure time of the journey, e.g. tomorrow, now or 1st of January 2020
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journey'
+components:
+  schemas:
+    Journey:
+      type: object
+      properties:
+        type:
+          type: string
+        legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Leg'
+    Leg:
+      type: object
+      properties:
+        origin:
+          $ref: '#/components/schemas/Stop'
+        destination:
+          $ref: '#/components/schemas/Stop'
+        departure:
+          type: string
+          format: date-time
+        plannedDeparture:
+          type: string
+          format: date-time
+        departureDelay:
+          type: integer
+        arrival:
+          type: string
+          format: date-time
+        plannedArrival:
+          type: string
+          format: date-time
+        arrivalDelay:
+          type: integer
+        reachable:
+          type: boolean
+        tripId:
+          type: string
+        line:
+          $ref: '#/components/schemas/Line'
+        direction:
+          type: string
+        currentLocation:
+          $ref: '#/components/schemas/Location'
+        arrivalPlatform:
+          type: string
+        plannedArrivalPlatform:
+          type: string
+        arrivalPrognosisType:
+          type: string
+        departurePlatform:
+          type: string
+        plannedDeparturePlatform:
+          type: string
+        departurePrognosisType:
+          type: string
+        remarks:
+          type: array
+          items:
+            type: object
+        loadFactor:
+          type: string
+    Stop:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        products:
+          $ref: '#/components/schemas/Products'
+    Location:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
+    Products:
+      type: object
+      properties:
+        nationalExpress:
+          type: boolean
+        national:
+          type: boolean
+        regionalExpress:
+          type: boolean
+        regional:
+          type: boolean
+        suburban:
+          type: boolean
+        bus:
+          type: boolean
+        ferry:
+          type: boolean
+        subway:
+          type: boolean
+        tram:
+          type: boolean
+        taxi:
+          type: boolean
+    Line:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        fahrtNr:
+          type: string
+        name:
+          type: string
+        public:
+          type: boolean
+        adminCode:
+          type: string
+        productName:
+          type: string
+        mode:
+          type: string
+        product:
+          type: string
+        operator:
+          $ref: '#/components/schemas/Operator'
+    Operator:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        name:
+          type: string

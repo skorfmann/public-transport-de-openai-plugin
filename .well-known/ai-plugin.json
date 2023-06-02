@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Journey Planner",
+  "name_for_model": "journey_planner",
+  "description_for_human": "Plan a journey with public transport in Germany. It can LIST journeys with a start and destination.",
+  "description_for_model": "Plan a journey with public transport in Germany. It can LIST journeys with a start and destination.",
+  "auth": {
+      "type": "none"
+  },
+  "api": {
+      "type": "openapi",
+      "url": "http://localhost:3000/openapi.yml"
+  },
+  "logo_url": "http://localhost:3000/logo.png",
+  "contact_email": "support@example.com",
+  "legal_info_url": "http://www.example.com/legal"
+}
