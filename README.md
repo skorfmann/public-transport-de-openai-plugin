@@ -1,1 +1,3 @@
-# public-transport-de-openai-plugin
+# Public Transport
+
+![Screenshot](./screenshot.png)
